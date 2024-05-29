@@ -32,6 +32,8 @@ class ArithLogicU<bits<7> opcode, string instr_asm, Operand Od, RegisterClass RC
   let isReMaterializable = 1;
 }
 
+// Allocate GPR for operands
 def ADDI: ArithLogicI<0b0010011, 0b000, "addi", add, simm12, GPR>;
 def LUI: ArithLogicU<0b0110111, "lui", simm20u, GPR>;
 def ADD: ArithLogicR<0b0110011, 0b000, 0b0000000, "add", add, GPR>;
+def SUB: ArithLogicR<0b0110011, 0b000, 0b0100000, "sub", sub, GPR>;
