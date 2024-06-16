@@ -1,5 +1,3 @@
-include "llvm/Target/Target.td"
-
 let Namespace = "MYRISCVX" in {
   // <Register Index, Register Name, Alternate Name maps>
   class MYRISCVXReg<bits<5> Enc, string n, list<string> alt = []> : Register<n> {
@@ -8,7 +6,9 @@ let Namespace = "MYRISCVX" in {
   }
 
   class MYRISCVXGPRReg<bits<5> Enc, string n, list<string> alt> : MYRISCVXReg<Enc, n, alt>;
+}
 
+let Namespace = "MYRISCVX" in {
   def ZERO : MYRISCVXGPRReg<0, "x0", ["zero"]>, DwarfRegNum<[0]>;
   def RA : MYRISCVXGPRReg<1, "x1", ["ra"]>, DwarfRegNum<[1]>;
   def SP : MYRISCVXGPRReg<2, "x2", ["sp"]>, DwarfRegNum<[2]>;
@@ -44,25 +44,25 @@ let Namespace = "MYRISCVX" in {
   def T4 : MYRISCVXGPRReg<29, "x29", ["t4"]>, DwarfRegNum<[29]>;
   def T5 : MYRISCVXGPRReg<30, "x30", ["t5"]>, DwarfRegNum<[30]>;
   def T6 : MYRISCVXGPRReg<31, "x31", ["t6"]>, DwarfRegNum<[31]>;
+}
 
-  // Switches type size on RV32/64
-  def RegType : ValueTypeByHwMode<[RV32, RV64, DefaultMode], [i32, i64, i32]>;
-  
-  def GPR : RegisterClass<"MYRISCVX", [RegType], 32 (add
-    // zero-fixed
-    ZERO,
-    // args / return values
-    A0, A1, A2, A3, A4, A5, A6, A7,
-    // caller-saved
-    T0, T1, T2, T3, T4, T5, T6
-    // callee-saved
-    FP, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11,
-    // others
-    RA, SP, GP, TP,
-  )> {
-    let RegInfos = RegInfoByHwMode<
-      [RV32, RV64, DefaultMode],
-      [RegInfo<32, 32, 32>, RegInfo<64, 64, 64>, RegInfo<32, 32, 32>]
-    >
-  };
+// Switches type size on RV32/64
+def RegType : ValueTypeByHwMode<[RV32, RV64, DefaultMode], [i32, i64, i32]>;
+
+def GPR : RegisterClass<"MYRISCVX", [RegType], 32, (add
+  // zero-fixed
+  ZERO,
+  // args / return values
+  A0, A1, A2, A3, A4, A5, A6, A7,
+  // caller-saved
+  T0, T1, T2, T3, T4, T5, T6,
+  // callee-saved
+  FP, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11,
+  // others
+  RA, SP, GP, TP
+)> {
+  let RegInfos = RegInfoByHwMode<
+    [RV32, RV64, DefaultMode],
+    [RegInfo<32, 32, 32>, RegInfo<64, 64, 64>, RegInfo<32, 32, 32>]
+  >;
 }

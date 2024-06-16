@@ -1,6 +1,20 @@
 include "MYRISCVXInstrFormats.td"
 
 
+// @{ MYRISCVXInstrInfo_Operand_Definition_simm12
+// 12ビットの即値オペランド
+def simm12 : Operand<RegType>, ImmLeaf<RegType, [{return isInt<12>(Imm);}]>;
+// @} MYRISCVXInstrInfo_Operand_Definition_simm12
+// @{ MYRISCVXInstrInfo_Operand_Definition_simm20u
+// 上位20ビットで下位12ビットが0の即値オペランド
+def simm20u : Operand<RegType>, ImmLeaf<RegType, [{return isInt<32>(Imm) && !(Imm & 0x0fff);}]>;
+// @} MYRISCVXInstrInfo_Operand_Definition_simm20u
+// @{ MYRISCVXInstrInfo_Operand_Definition_simm32
+// 32ビットの即値オペランド
+def simm32: Operand<RegType>, ImmLeaf<RegType, [{return isInt<32>(Imm);}]>;
+// @} MYRISCVXInstrInfo_Operand_Definition_simm32
+//@} MYRISCVXInstrInfo_Operand_Definition
+
 // ===---------------------------------------------------------------------===//
 // Instructions specific format
 // ===---------------------------------------------------------------------===//
