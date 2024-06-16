@@ -1,4 +1,4 @@
-#include "MYRISCVX.sh"
+#include "MYRISCVX.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Support/TargetRegistry.h"
 
