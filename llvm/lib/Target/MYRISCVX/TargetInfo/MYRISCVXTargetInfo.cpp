@@ -14,10 +14,10 @@ namespace llvm {
     static Target TheMYRISCVX64Target;
     return TheMYRISCVX64Target;
   }
+}
 
-  extern "C" void LLVMInitializeMYRISCVXTargetInfo() {
-    RegisterTarget<Triple::myriscvx32, /* HasJIT=*/true> X(getTheMYRISCVX32Target(), "myriscvx32", "MYRISCVX (32-bit)", "MYRISCVX");
-    RegisterTarget<Triple::myriscvx64, /* HasJIT=*/true> Y(getTheMYRISCVX64Target(), "myriscvx64", "MYRISCVX (64-bit)", "MYRISCVX");
-  }
+extern "C" void LLVMInitializeMYRISCVXTargetInfo() {
+  RegisterTarget<Triple::myriscvx32, /* HasJIT=*/true> X(getTheMYRISCVX32Target(), "myriscvx32", "MYRISCVX (32-bit)", "MYRISCVX");
+  RegisterTarget<Triple::myriscvx64, /* HasJIT=*/true> Y(getTheMYRISCVX64Target(), "myriscvx64", "MYRISCVX (64-bit)", "MYRISCVX");
 }
 
