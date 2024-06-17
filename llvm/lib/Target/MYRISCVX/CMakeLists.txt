@@ -4,8 +4,8 @@ set(LLVM_TARGET_DEFINITIONS MYRISCVX.td)
 
 # from MYRISCVXRegisterInfo.td
 tablegen(LLVM MYRISCVXGenRegisterInfo.inc -gen-register-info)
-tablegen(LLVM MYRISCVCGenInstrInfo.inc -gen-instr-info)
-tablegen(LLVM MYRISCVCGenSubtargetInfo.inc -gen-subtarget)
+tablegen(LLVM MYRISCVXGenInstrInfo.inc -gen-instr-info)
+tablegen(LLVM MYRISCVXGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM MYRISCVXGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM MYRISCVXCallingConv.td -gen-callingconv)
 
