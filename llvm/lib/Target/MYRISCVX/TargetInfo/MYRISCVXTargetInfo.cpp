@@ -5,15 +5,15 @@
 using namespace llvm;
 
 namespace llvm {
-  Target &getTheMYRISCVX32Target() {
-    static Target TheMYRISCVX32Target;
-    return TheMYRISCVX32Target;
-  }
+Target &getTheMYRISCVX32Target() {
+  static Target TheMYRISCVX32Target;
+  return TheMYRISCVX32Target;
+}
 
-  Target &getTheMYRISCVX64Target() {
-    static Target TheMYRISCVX64Target;
-    return TheMYRISCVX64Target;
-  }
+Target &getTheMYRISCVX64Target() {
+  static Target TheMYRISCVX64Target;
+  return TheMYRISCVX64Target;
+}
 }
 
 extern "C" void LLVMInitializeMYRISCVXTargetInfo() {
