@@ -28,6 +28,24 @@ extern "C" void LLVMInitializeMYRISCVXTarget() {
   RegisterTargetMachine<MYRISCVX64TargetMachine> Y(getTheMYRISCVXTarget64());
 }
 
+static std::string computeDataLayrout(const Triple &TT, StringRef CPU,
+                                      const TargetOptions &Options) {
+  assert((TT.isArch32Bit() || TT.isArch64Bit()) && "Unsupported architecture");
+
+  std::string Layout = "";
+  Layout += "e";  // little-endian
+  Layout += "-m:m"; // mangling
+  Layout += TT.isArch64Bit() ? "-p:64:64" : "-p:32:32"; // pointer size
+  Layout += "-i8:8:32-i16:16:32-i64:64"; // alignments 
+  Layout += TT.isArch64Bit() ? "-n64-S128" : "-n32-S64"; // integer register / stack alignment
+  return Layout;
+}
+
+static Reloc::Model getEffectiveRelocModel(bool JIT, Optional<Reloc::Model> RM) {
+  if (!RM.hasValue() || JIT) return Reloc::Static;
+  return *RM;
+}
+
 MYRISCVXTargetMachine::MYRISCVXTargetMachine(const Target &T, const Triple &TT,
                                              StringRef CPU, StringRef FS,
                                              const TargetOptions &Options,
